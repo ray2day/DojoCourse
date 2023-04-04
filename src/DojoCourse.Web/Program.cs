@@ -6,11 +6,16 @@ builder.Host.UseNLogHost();
 
 builder.Services
     .AddOrchardCms()
-    // // Orchard Specific Pipeline
-    // .ConfigureServices( services => {
-    // })
-    // .Configure( (app, routes, services) => {
-    // })
+// // Orchard Specific Pipeline
+// .ConfigureServices( services => {
+// })
+// .Configure( (app, routes, services) => {
+// })
+.ConfigureServices(tenantServices =>                               // added to be able to embed video (possible vulnerbillity)
+        tenantServices.ConfigureHtmlSanitizer((sanitizer) =>        
+        {
+            sanitizer.AllowedTags.Add("iframe");                    
+        }))
 ;
 
 var app = builder.Build();
